@@ -1,0 +1,241 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
+  color: #2f3b33;
+  background: linear-gradient(180deg, #f6fbf7 0%, #eef6f0 100%);
+  min-height: 100vh;
+}
+
+.qr-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 48px 20px;
+}
+
+.qr-card {
+  width: 80%;
+  max-width: 1400px;
+  background: #fff;
+  border-radius: 16px;
+  border: 1px solid rgba(118, 208, 106, 0.18);
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.08);
+  padding: 40px;
+}
+
+.qr-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.qr-header-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #4caf50;
+  background: rgba(118, 208, 106, 0.12);
+  border: 1px solid rgba(118, 208, 106, 0.25);
+  flex-shrink: 0;
+}
+
+.qr-title {
+  margin: 0 0 4px;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.qr-subtitle {
+  margin: 0;
+  font-size: 13px;
+  color: #7a857d;
+  line-height: 1.5;
+}
+
+.qr-form {
+  margin-bottom: 24px;
+}
+
+.qr-label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  color: #8a948c;
+  margin-bottom: 8px;
+}
+
+.qr-input-row {
+  display: flex;
+  gap: 10px;
+}
+
+.qr-input {
+  flex: 1 1 auto;
+  height: 44px;
+  border-radius: 10px;
+  border: 1px solid #d7e2d9;
+  padding: 0 14px;
+  font-size: 14px;
+  color: #2f3b33;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.qr-input:focus {
+  outline: none;
+  border-color: #76d06a;
+  box-shadow: 0 0 0 3px rgba(118, 208, 106, 0.18);
+}
+
+.qr-decode-btn {
+  flex: 0 0 auto;
+  height: 44px;
+  padding: 0 26px;
+  border-radius: 10px;
+  border: none;
+  background: #4caf50;
+  color: #fff;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.18s ease, opacity 0.18s ease;
+}
+
+.qr-decode-btn:hover:not(:disabled) {
+  background: #43a047;
+}
+
+.qr-decode-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.qr-status {
+  margin: 12px 0 0;
+  min-height: 18px;
+  font-size: 13px;
+  color: #7a857d;
+}
+
+.qr-status-loading {
+  color: #2f80ed;
+}
+.qr-status-success {
+  color: #2e9e4f;
+}
+.qr-status-error {
+  color: #d9534f;
+}
+
+.qr-body {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.qr-preview-wrap,
+.qr-result-wrap {
+  flex: 1 1 280px;
+  min-width: 240px;
+  display: flex;
+  flex-direction: column;
+}
+
+.qr-section-label {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  color: #8a948c;
+  margin-bottom: 8px;
+}
+
+.qr-preview {
+  border: 1px dashed #cfdcd2;
+  border-radius: 12px;
+  background: #f8fbf9;
+  min-height: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  overflow: hidden;
+}
+
+.qr-preview-empty {
+  color: #b3bdb6;
+}
+
+.qr-preview-img {
+  max-width: 100%;
+  max-height: 360px;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+.qr-result {
+  flex: 1 1 auto;
+  border: 1px solid #e2e9e4;
+  border-radius: 12px;
+  background: #f8fbf9;
+  min-height: 320px;
+  padding: 14px 16px;
+  font-family: Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: 13px;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  word-break: break-all;
+  overflow: auto;
+}
+
+.qr-result-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #b3bdb6;
+}
+
+.qr-copy-btn {
+  margin-top: 12px;
+  align-self: flex-start;
+  border-radius: 8px;
+  border: 1px solid #d7e2d9;
+  background: #fff;
+  padding: 8px 16px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.qr-copy-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.qr-hidden-canvas {
+  display: none;
+}
+
+@media (max-width: 600px) {
+  .qr-card {
+    width: 100%;
+    padding: 22px;
+  }
+  .qr-input-row {
+    flex-direction: column;
+  }
+  .qr-decode-btn {
+    width: 100%;
+  }
+}

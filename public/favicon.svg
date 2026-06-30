@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="QR Code Decoder">
+  <rect width="64" height="64" rx="12" fill="#111827"/>
+  <g fill="#4caf50">
+    <!-- top-left finder -->
+    <path d="M10 10h16v16H10zM14 14v8h8v-8z"/>
+    <rect x="16" y="16" width="4" height="4"/>
+    <!-- top-right finder -->
+    <path d="M38 10h16v16H38zM42 14v8h8v-8z"/>
+    <rect x="44" y="16" width="4" height="4"/>
+    <!-- bottom-left finder -->
+    <path d="M10 38h16v16H10zM14 42v8h8v-8z"/>
+    <rect x="16" y="44" width="4" height="4"/>
+    <!-- data modules -->
+    <rect x="32" y="32" width="4" height="4"/>
+    <rect x="40" y="32" width="4" height="4"/>
+    <rect x="48" y="32" width="4" height="4"/>
+    <rect x="32" y="40" width="4" height="4"/>
+    <rect x="44" y="40" width="4" height="4"/>
+    <rect x="32" y="48" width="4" height="4"/>
+    <rect x="40" y="48" width="4" height="4"/>
+    <rect x="48" y="48" width="4" height="4"/>
+    <rect x="44" y="44" width="4" height="4"/>
+  </g>
+</svg>

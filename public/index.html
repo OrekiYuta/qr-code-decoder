@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Primary meta -->
+  <title>QR Code Decoder — Decode a QR Code from an Image URL</title>
+  <meta name="description" content="Free online QR code decoder. Paste an image URL and instantly read the QR code back to its original text, right in your browser. Supports inverted and artistic QR codes via zbar, ZXing and jsQR." />
+  <meta name="keywords" content="QR code decoder, QR code reader, decode QR code, QR code from URL, online QR decoder, read QR code image" />
+  <meta name="author" content="OrekiYuta" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#111827" />
+  <link rel="canonical" href="https://qr.orekiyuta.cn/" />
+
+  <!-- Icons -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/favicon.svg" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="QR Code Decoder" />
+  <meta property="og:title" content="QR Code Decoder — Decode a QR Code from an Image URL" />
+  <meta property="og:description" content="Paste an image URL and instantly read the QR code back to its original text, right in your browser." />
+  <meta property="og:url" content="https://qr.orekiyuta.cn/" />
+  <meta property="og:image" content="https://qr.orekiyuta.cn/favicon.svg" />
+  <meta property="og:locale" content="en_US" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="QR Code Decoder — Decode a QR Code from an Image URL" />
+  <meta name="twitter:description" content="Paste an image URL and instantly read the QR code back to its original text, right in your browser." />
+  <meta name="twitter:image" content="https://qr.orekiyuta.cn/favicon.svg" />
+
+  <!-- Structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "QR Code Decoder",
+    "url": "https://qr.orekiyuta.cn/",
+    "description": "Free online QR code decoder. Paste an image URL and read the QR code back to its original text in the browser.",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires JavaScript",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "author": {
+      "@type": "Person",
+      "name": "OrekiYuta"
+    }
+  }
+  </script>
+
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <div class="qr-container">
+    <div class="qr-card">
+      <header class="qr-header">
+        <span class="qr-header-icon" aria-hidden="true">
+          <svg viewBox="0 0 64 64" width="30" height="30" fill="currentColor">
+            <path d="M10 10h16v16H10zM14 14v8h8v-8z"/>
+            <rect x="16" y="16" width="4" height="4"/>
+            <path d="M38 10h16v16H38zM42 14v8h8v-8z"/>
+            <rect x="44" y="16" width="4" height="4"/>
+            <path d="M10 38h16v16H10zM14 42v8h8v-8z"/>
+            <rect x="16" y="44" width="4" height="4"/>
+            <rect x="32" y="32" width="4" height="4"/>
+            <rect x="40" y="32" width="4" height="4"/>
+            <rect x="48" y="32" width="4" height="4"/>
+            <rect x="32" y="40" width="4" height="4"/>
+            <rect x="44" y="40" width="4" height="4"/>
+            <rect x="32" y="48" width="4" height="4"/>
+            <rect x="40" y="48" width="4" height="4"/>
+            <rect x="48" y="48" width="4" height="4"/>
+            <rect x="44" y="44" width="4" height="4"/>
+          </svg>
+        </span>
+        <div class="qr-header-text">
+          <h1 class="qr-title">QR Code Decoder</h1>
+          <p class="qr-subtitle">Paste an image link and decode the QR code back to its original text. The fetch is proxied server-side to bypass CDN hotlink protection.</p>
+        </div>
+      </header>
+
+      <div class="qr-form">
+        <label class="qr-label" for="qr-image-url">Image URL</label>
+        <div class="qr-input-row">
+          <input
+            type="text"
+            id="qr-image-url"
+            class="qr-input"
+            placeholder="https://example.com/qrcode.png"
+            autocomplete="off"
+            spellcheck="false"
+          />
+          <button type="button" id="qr-decode-btn" class="qr-decode-btn">Decode</button>
+        </div>
+        <p id="qr-status" class="qr-status" role="status"></p>
+      </div>
+
+      <div class="qr-body">
+        <div class="qr-preview-wrap">
+          <span class="qr-section-label">Preview</span>
+          <div id="qr-preview" class="qr-preview qr-preview-empty">
+            <span>No image loaded</span>
+          </div>
+        </div>
+
+        <div class="qr-result-wrap">
+          <span class="qr-section-label">Decoded Result</span>
+          <div id="qr-result" class="qr-result qr-result-empty">
+            <span class="qr-result-placeholder">Result will appear here.</span>
+          </div>
+          <button type="button" id="qr-copy-btn" class="qr-copy-btn" disabled>Copy</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <canvas id="qr-canvas" class="qr-hidden-canvas"></canvas>
+
+  <script src="/js/jsQR.js"></script>
+  <script src="/js/vendor/zxing.min.js"></script>
+  <script type="module" src="/js/app.js"></script>
+
+  <!-- Analytics -->
+  <script
+    id="counterscale-script"
+    data-site-id="qr-code"
+    src="https://counterscale.elcf.workers.dev/tracker.js"
+    defer
+  ></script>
+</body>
+</html>

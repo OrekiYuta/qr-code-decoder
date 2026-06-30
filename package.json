@@ -1,0 +1,15 @@
+{
+  "name": "qr-code-decoder",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Decode a QR code from an image URL. The image fetch is proxied server-side (forging browser headers) to bypass CDN hotlink protection; decoding runs in the browser via zbar-wasm, ZXing, and jsQR.",
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "dev": "node server.js",
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
