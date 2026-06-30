@@ -1,10 +1,23 @@
 # qr-code-decoder
 
-Decode a QR code from an **image URL** and get the original text back —
-running entirely in the browser, with a tiny server-side proxy to bypass CDN
-hotlink protection. Built to deploy on **Vercel** with zero configuration.
+Decode a QR code back to its original text — **right in your browser**. Give it
+an **image URL**, **upload a file**, or just **paste an image** (Ctrl/Cmd + V).
+A tiny server-side proxy is used only for URL fetches, to get past CDN hotlink
+protection. Built to deploy on **Vercel** with zero configuration.
 
-## Why a proxy?
+## Three ways to decode
+
+1. **Image URL** — paste a link; the image is fetched through the same-origin
+   proxy (`/api/proxy`) and decoded.
+2. **Upload** — pick a local image file.
+3. **Paste** — copy any image and press <kbd>Ctrl/Cmd</kbd> + <kbd>V</kbd>
+   anywhere on the page.
+
+Upload and paste are decoded **entirely in the browser** — the image never
+leaves your device and never touches the server. This also works when a source
+CDN blocks the proxy (see below).
+
+## Why a proxy (and its limits)
 
 Some image CDNs reject direct browser/extension requests with HTTP 403 because
 of the `Origin` header (hotlink protection). The serverless function at
@@ -12,6 +25,11 @@ of the `Origin` header (hotlink protection). The serverless function at
 (no `Origin`, a normal `User-Agent`, and a same-site `Referer`), so it gets
 past those checks. The page then loads the image **same-origin**, which means
 no CORS error and no tainted canvas.
+
+**Limitation:** a minority of CDNs block by **IP range** (data-center / cloud
+IPs), not by headers. Those return 403 to any server-side fetch — including
+Vercel — and no header trick can bypass that. For those images, use **Upload**
+or **Paste** instead, which decode locally with no network request.
 
 ## Multi-engine decoding
 
@@ -33,11 +51,14 @@ qr-code-decoder/
 ├── api/
 │   └── proxy.js            # Vercel Serverless Function: GET /api/proxy?url=...
 ├── public/                 # static root (served by Vercel / local server)
-│   ├── index.html          # static entry
+│   ├── index.html          # static entry (SEO meta, JSON-LD, analytics)
+│   ├── favicon.svg         # site icon
+│   ├── robots.txt
+│   ├── sitemap.xml
 │   ├── css/
 │   │   └── style.css
 │   └── js/
-│       ├── app.js          # decode pipeline (ES module)
+│       ├── app.js          # decode pipeline + URL / upload / paste handlers
 │       ├── jsQR.js         # engine 3 (lightweight)
 │       └── vendor/
 │           ├── zbar-wasm.mjs   # engine 1 (strongest)
@@ -45,6 +66,7 @@ qr-code-decoder/
 │           └── zxing.min.js    # engine 2 (TRY_HARDER)
 ├── server.js               # local dev server (not used on Vercel)
 ├── vercel.json             # static root + caching headers
+├── LICENSE
 └── package.json
 ```
 
@@ -59,8 +81,7 @@ Requires Node.js 18+ (uses the built-in `fetch`).
 npm run dev
 ```
 
-Then open http://localhost:5173 and paste an image URL. Change the port with
-`PORT=8080 npm run dev`.
+Then open http://localhost:5173. Change the port with `PORT=8080 npm run dev`.
 
 `server.js` serves the static files and reuses the exact same handler from
 `api/proxy.js`, so local behaviour matches production.
@@ -88,3 +109,7 @@ vercel --prod   # production deploy
 
 After deploying, the app is available at your Vercel URL and the proxy at
 `https://<your-app>.vercel.app/api/proxy?url=<image-url>`.
+
+## License
+
+[MIT](LICENSE) © OrekiYuta
